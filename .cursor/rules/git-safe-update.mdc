@@ -1,0 +1,31 @@
+---
+description: Git safe-update workflow для К.У.М.
+alwaysApply: true
+---
+
+# Git safe-update workflow
+
+## Безопасность
+
+- Не меняй `git config`.
+- Не используй destructive-команды (`push --force`, `reset --hard`, `clean -fd`) без явной просьбы пользователя.
+- Не коммить secrets (`.env`, ключи, токены, лицензии Unity CI с секретами).
+- Не пушь в remote без явной просьбы.
+- Не используй `--no-verify` / интерактивные git-флаги (`-i`).
+
+## Коммиты
+
+- Только по явной просьбе пользователя.
+- Сообщения — Conventional Commits: `feat|fix|docs|chore|test|refactor|ci|build|perf(scope): summary`.
+- Один логический смысл на коммит; не смешивай docs bootstrap с бизнес-кодом.
+
+## Обновление ветки
+
+1. `git status` / `git diff` — понять локальное состояние.
+2. Предпочитай `git pull --rebase` (или merge, если так принято в команде) вместо force.
+3. Конфликты решай осознанно; после разрешения — тесты/сборка по возможности.
+4. Для PR: актуальная ветка, заполненный template, ссылки на ADR при архитектурных изменениях.
+
+## Агент
+
+Перед коммитом по запросу: status + staged/unstaged diff + стиль последних сообщений. Не амend уже запушенные коммиты.
